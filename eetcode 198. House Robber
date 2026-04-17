@@ -1,0 +1,18 @@
+class Solution {
+    Integer [] dp;
+    public int rob(int[] nums) {
+        dp=new Integer[nums.length];
+        return solve(nums.length-1,nums);
+    }
+    public int solve(int idx,int []nums){
+        if(idx==0) return nums[0];
+        //if(idx<0) return 0;
+        if(dp[idx]!=null) return dp[idx];
+        int take=(idx<=1)?Integer.MIN_VALUE:nums[idx]+solve(idx-2,nums);
+        // if(idx>1){
+        //     take=nums[idx]+solve(idx-2,nums);
+        // }
+        int ntake=solve(idx-1,nums);
+        return dp[idx]= Math.max(take,ntake);
+    }
+}
