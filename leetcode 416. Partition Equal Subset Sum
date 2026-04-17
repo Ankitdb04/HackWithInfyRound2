@@ -1,0 +1,28 @@
+class Solution {
+    Boolean [] []dp; 
+    public boolean canPartition(int[] nums) {
+        int n=nums.length;
+        
+        int sum=0;
+        for(int x:nums) sum+=x;
+        if((sum & 1)!=0) return false;
+        int target=sum/2;
+        dp=new Boolean [n][target+1];
+        return solve(n-1,target,nums);
+    }
+    public boolean solve(int idx,int target,int [] nums){
+        if(idx==0){
+            if(target==nums[0]) return true;
+            return false;
+        }
+        if(target==0)return true;
+        if(dp[idx][target]!=null) return dp[idx][target];
+        boolean take=false;
+        if(target>=nums[idx]){
+            take=solve(idx-1,target-nums[idx],nums);
+        }
+        boolean ntake=solve(idx-1,target,nums);
+        return dp[idx][target]=take || ntake;
+
+    }
+}
