@@ -1,0 +1,30 @@
+class Solution {
+    static int [] dr={-1,1,0,0};
+    static int [] dc={0,0,-1,1};
+    static int rL;
+    static int cL;
+    public int numIslands(char[][] grid) {
+        rL=grid.length;
+        cL=grid[0].length;
+        boolean [][]vis=new boolean[rL][cL];
+        int isLand=0;
+        for(int i=0;i<rL;i++){
+            for(int j=0;j<cL;j++){
+                if( grid[i][j]=='1' && !vis[i][j]){
+                    dfs(i,j,grid,vis);
+                    isLand++;
+                    
+                }
+            }
+        }
+        return isLand;
+    }
+    public void dfs(int r,int c,char [][] grid,boolean [][] vis){
+        if(r<0||c<0||r>=rL||c>=cL|| grid[r][c]=='0'|| vis[r][c]) return;
+        
+        vis[r][c]=true;
+        for(int i=0;i<4;i++){
+            dfs(r+dr[i],c+dc[i],grid,vis);
+        }
+    }
+}
